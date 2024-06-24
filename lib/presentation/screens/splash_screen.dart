@@ -1,11 +1,11 @@
 import 'package:ecommerce_app/presentation/screens/email_verification_screen.dart';
-import 'package:ecommerce_app/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 import '../widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
+
   const SplashScreen({super.key});
 
   @override
