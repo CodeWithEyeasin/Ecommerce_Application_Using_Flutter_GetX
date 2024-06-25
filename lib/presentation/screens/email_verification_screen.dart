@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/presentation/screens/otp_verification_screen.dart';
-import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:ecommerce_app/presentation/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
