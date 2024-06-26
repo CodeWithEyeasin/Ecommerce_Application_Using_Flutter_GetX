@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/app_bar_icon_button.dart';
 import '../widgets/category_item.dart';
 import '../widgets/home_carousel_slider.dart';
+import '../widgets/product_card.dart';
 import '../widgets/section_header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,11 +45,23 @@ class _HomeScreenState extends State<HomeScreen> {
               //   height: 8,
               // ),
               SectionHeader(
-                title: 'Popular Products',
+                title: 'Popular',
                 onTapSeeAll: () {},
               ),
               const SizedBox(height: 10,),
-              const ProductCard()
+              _buildProductListView(),
+              SectionHeader(
+                title: 'Special',
+                onTapSeeAll: () {},
+              ),
+              const SizedBox(height: 10,),
+              _buildProductListView(),
+              SectionHeader(
+                  title: 'New',
+                onTapSeeAll: () {},
+              ),
+              const SizedBox(height: 10,),
+              _buildProductListView(),
             ],
           ),
         ),
@@ -72,6 +85,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             );
+  }
+  Widget _buildProductListView() {
+    return SizedBox(
+      height: 210,
+      child: ListView.separated(
+        itemCount: 8,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return const ProductCard();
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(
+            width: 16,
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildSearchTextField() {
@@ -129,82 +159,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child:SizedBox(
-        width: 150,
-        child: Column(
-          children: [
-            Container(
-              width: 150,
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor.withOpacity(0.1),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(AssetsPath.productDummyImageSvg,),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Nike Sports Shoe 320k Special Edition',maxLines: 2,style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
-                  ),),
-                  Wrap(
-                    spacing: 5,
-                    // alignment: WrapAlignment.start,
-                    crossAxisAlignment:WrapCrossAlignment.center ,
-                    children: [
-                      Text('\$30', style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: AppColors.primaryColor,
-                      ),),
-                      Wrap(
-                        children: [
-                          Icon(Icons.star,color: Colors.amber,size: 20,),
-                          Text('4.8'),
-                        ],
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        color: AppColors.primaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Icon(Icons.favorite_border_outlined,size: 16,color: Colors.white,),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

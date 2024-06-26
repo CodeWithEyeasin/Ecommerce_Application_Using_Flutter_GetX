@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/presentation/screens/home_screen.dart';
+import 'package:ecommerce_app/presentation/screens/main_bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async {
    await Future.delayed(const Duration(seconds: 2),);
-   Get.off(()=>const HomeScreen());
+   Get.off(()=>const MainBottomNavBarScreen());
   }
 
   @override
