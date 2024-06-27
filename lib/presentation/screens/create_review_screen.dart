@@ -1,7 +1,4 @@
-import 'package:ecommerce_app/presentation/screens/product_details_screen.dart';
-import 'package:ecommerce_app/presentation/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CreateReviewScreen extends StatefulWidget {
   const CreateReviewScreen({super.key});
@@ -20,7 +17,6 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Review'),
