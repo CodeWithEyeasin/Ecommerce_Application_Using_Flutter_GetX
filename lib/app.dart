@@ -35,6 +35,9 @@ class _CraftyBayState extends State<CraftyBay> {
           )
         ) ,
         elevatedButtonTheme: buildElevatedButtonThemeData(),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: AppColors.primaryColor,
+        ),
       ),
     );
   }
@@ -56,6 +59,7 @@ class _CraftyBayState extends State<CraftyBay> {
         ),
       );
   }
+
 
   TextTheme _textTheme() => const TextTheme(
         headlineLarge: TextStyle(

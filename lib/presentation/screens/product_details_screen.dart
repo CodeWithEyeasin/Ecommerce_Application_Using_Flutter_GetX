@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/presentation/screens/review_screen.dart';
 import 'package:ecommerce_app/presentation/widgets/product_image_carousel_slider.dart';
 import 'package:ecommerce_app/presentation/widgets/size_picker.dart';
 import 'package:ecommerce_app/presentation/widgets/wish_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import '../utility/app_colors.dart';
 import '../widgets/color_picker.dart';
@@ -123,7 +125,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Text('4.8'),
           ],
         ),
-        TextButton(onPressed: () {}, child: const Text('Reviews')),
+        TextButton(onPressed: () {
+          Get.to(()=>const ReviewScreen());
+        }, child: const Text('Reviews')),
         const WishButton(),
       ],
     );
@@ -175,7 +179,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.grey,
         ),),
-        Text('\$1200',style: TextStyle(
+        Text('\$30',style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: AppColors.primaryColor,

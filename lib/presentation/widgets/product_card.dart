@@ -44,12 +44,12 @@ class ProductCard extends StatelessWidget {
                   child: Image.asset(AssetsPath.productDummyImageSvg,),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Nike Sports Shoe 320k Special Edition',maxLines: 2,style: TextStyle(
+                    Text('Nike Sports Shoe 320k Special Edition',maxLines: 2,style: TextStyle(
                       overflow: TextOverflow.ellipsis,
                       fontSize: 13,
                       color: Colors.grey,
@@ -60,12 +60,12 @@ class ProductCard extends StatelessWidget {
                       // alignment: WrapAlignment.start,
                       crossAxisAlignment:WrapCrossAlignment.center ,
                       children: [
-                        const Text('\$30', style: TextStyle(
+                        Text('\$30', style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.primaryColor,
                         ),),
-                        const Wrap(
+                        Wrap(
                           children: [
                             Icon(Icons.star,color: Colors.amber,size: 20,),
                             Text('4.8'),
