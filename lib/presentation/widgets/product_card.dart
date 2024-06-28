@@ -3,15 +3,17 @@ import 'package:ecommerce_app/presentation/widgets/wish_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../data/models/product.dart';
 import '../utility/app_colors.dart';
 import '../utility/assets_path.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key, this.showAddToWishlist = true,
+    super.key, this.showAddToWishlist = true, required this.product,
   });
 
   final bool showAddToWishlist;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +43,15 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(AssetsPath.productDummyImageSvg,),
+                  child: Image.network(product.image ?? ''),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Nike Sports Shoe 320k Special Edition',maxLines: 2,style: TextStyle(
+                    Text(product.title ?? '',maxLines: 2,style: const TextStyle(
                       overflow: TextOverflow.ellipsis,
                       fontSize: 13,
                       color: Colors.grey,
@@ -60,15 +62,15 @@ class ProductCard extends StatelessWidget {
                       // alignment: WrapAlignment.start,
                       crossAxisAlignment:WrapCrossAlignment.center ,
                       children: [
-                        Text('\$30', style: TextStyle(
+                        Text('\$${product.price}', style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.primaryColor,
                         ),),
                         Wrap(
                           children: [
-                            Icon(Icons.star,color: Colors.amber,size: 20,),
-                            Text('4.8'),
+                            const Icon(Icons.star,color: Colors.amber,size: 20,),
+                            Text('${product.star}'),
                           ],
                         ),
                         WishButton(),

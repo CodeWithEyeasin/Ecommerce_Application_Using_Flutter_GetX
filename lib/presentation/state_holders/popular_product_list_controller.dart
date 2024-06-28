@@ -1,35 +1,37 @@
-import 'package:ecommerce_app/data/models/network_response.dart';
-import 'package:ecommerce_app/network_caller/network_caller.dart';
 import 'package:get/get.dart';
+import '../../data/models/network_response.dart';
 import '../../data/models/product.dart';
 import '../../data/models/product_list_model.dart';
 import '../../data/utility/urls.dart';
+import '../../network_caller/network_caller.dart';
 
-class ProductListByCategoryController extends GetxController {
-  bool _inProgress = false;
-  String _errorMessage = '';
+class PopularProductListController extends GetxController {
+  bool _popularProductInProgress = false;
+
   List<Product> _productList = [];
 
-  bool get inProgress => _inProgress;
+  String _errorMessage = '';
+
+  bool get popularProductInProgress => _popularProductInProgress;
 
   List<Product> get productList => _productList;
 
   String get errorMessage => _errorMessage;
 
-  Future<bool> getProductList(int categoryId) async {
+  Future<bool> getPopularProductList() async {
     bool isSuccess = false;
-    _inProgress = true;
+    _popularProductInProgress = true;
     update();
-    final NetworkResponse response =
-        await NetworkCaller.getRequest(url: Urls.productListByCategory(categoryId));
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        url: Urls.productListByRemark('Popular'));
     if (response.isSuccess) {
       _productList =
           ProductListModel.fromJson(response.responseData).productList ?? [];
+      isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
     }
-
-    _inProgress = false;
+    _popularProductInProgress = false;
     update();
     return isSuccess;
   }

@@ -1,12 +1,14 @@
 import 'package:ecommerce_app/presentation/state_holders/category_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/main_bottom_nav_bar_controller.dart';
+import 'package:ecommerce_app/presentation/state_holders/popular_product_list_controller.dart';
 import 'package:ecommerce_app/presentation/utility/assets_path.dart';
 import 'package:ecommerce_app/presentation/widgets/centered_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../data/models/category.dart';
+import '../../data/models/product.dart';
 import '../widgets/app_bar_icon_button.dart';
 import '../widgets/category_item.dart';
 import '../widgets/home_carousel_slider.dart';
@@ -79,7 +81,16 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              _buildProductListView(),
+              GetBuilder<PopularProductListController>(
+                builder: (popularProductListController) {
+                  if(popularProductListController.popularProductInProgress){
+                    return const SizedBox(
+                      height: 210,
+                        child: CenterCircularProgressIndicator());
+                  }
+                  return _buildProductListView(popularProductListController.productList);
+                }
+              ),
               SectionHeader(
                 title: 'Special',
                 onTapSeeAll: () {},
@@ -87,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              _buildProductListView(),
+              // _buildProductListView(),
               SectionHeader(
                 title: 'New',
                 onTapSeeAll: () {},
@@ -95,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 10,
               ),
-              _buildProductListView(),
+              // _buildProductListView(),
             ],
           ),
         ),
@@ -123,14 +134,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildProductListView() {
+  Widget _buildProductListView(List<Product> productList) {
     return SizedBox(
       height: 210,
       child: ListView.separated(
-        itemCount: 8,
+        itemCount: productList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return const ProductCard();
+          return  ProductCard(product: productList[index],);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
