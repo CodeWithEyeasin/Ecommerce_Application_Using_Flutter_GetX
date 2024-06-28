@@ -1,20 +1,25 @@
 import 'package:ecommerce_app/presentation/screens/product_list_screen.dart';
+import 'package:ecommerce_app/presentation/widgets/network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../data/models/category.dart';
 import '../utility/app_colors.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
     super.key,
+    required this.category,
   });
+
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Get.to(
-          () => const ProductListScreen(categoryName: 'Electronics'),
+          () => ProductListScreen(categoryName: category.categoryName ?? ''),
         );
       },
       child: Column(
@@ -25,22 +30,24 @@ class CategoryItem extends StatelessWidget {
               color: AppColors.primaryColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(
-              Icons.desktop_windows_outlined,
-              size: 40,
-              color: AppColors.primaryColor,
+            child: NetworkImageWidget(
+              url: category.categoryImg ?? '',
+              height: 30,
+              weight: 30,
             ),
           ),
           const SizedBox(
             height: 8,
           ),
-          const Text(
-            'Electronics',
-            style: TextStyle(
+          Text(
+            category.categoryName ?? '',
+            maxLines: 1,
+            style: const TextStyle(
               fontSize: 18,
               color: AppColors.primaryColor,
               fontWeight: FontWeight.w400,
               letterSpacing: 0.4,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
