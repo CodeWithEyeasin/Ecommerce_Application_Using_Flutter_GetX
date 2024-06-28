@@ -7,15 +7,17 @@ import 'package:get/get.dart';
 class CraftyBay extends StatefulWidget {
   const CraftyBay({super.key});
 
+  static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
   @override
   State<CraftyBay> createState() => _CraftyBayState();
 }
 
 class _CraftyBayState extends State<CraftyBay> {
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorKey: CraftyBay.navigationKey,
       home: const SplashScreen(),
       initialBinding: ControllerBinder(),
       theme: ThemeData(
@@ -29,11 +31,10 @@ class _CraftyBayState extends State<CraftyBay> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
         ),
-        textButtonTheme:TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: AppColors.primaryColor,
-          )
-        ) ,
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+          foregroundColor: AppColors.primaryColor,
+        )),
         elevatedButtonTheme: buildElevatedButtonThemeData(),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           foregroundColor: AppColors.primaryColor,
@@ -44,22 +45,21 @@ class _CraftyBayState extends State<CraftyBay> {
 
   ElevatedButtonThemeData buildElevatedButtonThemeData() {
     return ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          fixedSize: const Size.fromWidth(double.maxFinite),
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
-          backgroundColor: AppColors.primaryColor,
-          foregroundColor: Colors.white,
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-          ),
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size.fromWidth(double.maxFinite),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
         ),
-      );
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: Colors.white,
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 16,
+        ),
+      ),
+    );
   }
-
 
   TextTheme _textTheme() => const TextTheme(
         headlineLarge: TextStyle(

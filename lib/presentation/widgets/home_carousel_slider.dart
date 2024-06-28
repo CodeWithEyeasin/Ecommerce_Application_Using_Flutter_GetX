@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import '../../data/models/slider_data.dart';
 import '../utility/app_colors.dart';
 
 class HomeCarouselSlider extends StatefulWidget {
   const HomeCarouselSlider({
-    super.key,
+    super.key, required this.sliderList,
   });
+
+  final List<SliderData> sliderList;
 
   @override
   State<HomeCarouselSlider> createState() => _HomeCarouselSliderState();
@@ -35,7 +38,7 @@ Widget _buildCarouselSlider() {
             onPageChanged: (index, _) {
               _selectedPageIndex.value = index;
             }),
-        items: [1, 2, 3, 4, 5].map((i) {
+        items: widget.sliderList.map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Container(
@@ -63,7 +66,7 @@ Widget _buildDotIndicator() {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < widget.sliderList.length; i++)
                 Container(
                   height: 15,
                   width: 15,

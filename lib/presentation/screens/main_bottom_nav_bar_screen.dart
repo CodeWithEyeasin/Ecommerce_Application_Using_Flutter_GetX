@@ -2,6 +2,7 @@ import 'package:ecommerce_app/presentation/screens/cart_list_screen.dart';
 import 'package:ecommerce_app/presentation/screens/category_list_screen.dart';
 import 'package:ecommerce_app/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/presentation/screens/wish_list_screen.dart';
+import 'package:ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/main_bottom_nav_bar_controller.dart';
 import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,12 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
     CartListScreen(),
     WishListScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<HomeSliderController>().getSliders();
+  }
 
   @override
   Widget build(BuildContext context) {
