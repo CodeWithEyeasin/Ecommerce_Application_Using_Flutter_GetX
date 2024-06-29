@@ -1,4 +1,4 @@
-
+import 'package:ecommerce_app/presentation/state_holders/user_auth_controller.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/network_response.dart';
@@ -19,7 +19,7 @@ class VerifyOtpController extends GetxController {
     update();
     final NetworkResponse response = await NetworkCaller.getRequest(
         url: Urls.verifyOtp(email, otp),
-        fromAuth: true
+        fromAuth: true,
     );
     if (response.isSuccess) {
       await UserAuthController.saveUserToken(response.responseData['data']);
