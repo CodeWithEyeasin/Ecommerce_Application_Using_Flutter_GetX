@@ -5,10 +5,13 @@ import 'package:ecommerce_app/presentation/screens/wish_list_screen.dart';
 import 'package:ecommerce_app/presentation/state_holders/category_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/main_bottom_nav_bar_controller.dart';
+import 'package:ecommerce_app/presentation/state_holders/new_product_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/popular_product_list_controller.dart';
 import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../state_holders/special_product_list_controller.dart';
 
 class MainBottomNavBarScreen extends StatefulWidget {
   const MainBottomNavBarScreen({super.key});
@@ -34,6 +37,8 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
     Get.find<HomeSliderController>().getSliders();
     Get.find<CategoryListController>().getCategoryList();
     Get.find<PopularProductListController>().getPopularProductList();
+    Get.find<SpecialProductListController>().getSpecialProductList();
+    Get.find<NewProductListController>().getNewProductList();
   }
 
   @override
