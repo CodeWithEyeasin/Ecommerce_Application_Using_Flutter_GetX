@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:ecommerce_app/presentation/screens/email_verification_screen.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
@@ -43,7 +42,7 @@ class NetworkCaller {
     try {
       print(url);
       final Response response = await post(Uri.parse(url),
-          headers: {'accept': 'application/json'}, body: body);
+          headers: {'accept': 'application/json'}, body: jsonEncode(body));
       print(response.statusCode.toString());
       print(response.body.toString());
 
