@@ -4,7 +4,7 @@ import 'package:ecommerce_app/data/utility/urls.dart';
 import 'package:ecommerce_app/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
-class VerifyEmailController extends GetxController {
+class AddToWishListController extends GetxController {
   bool _inProgress = false;
   String _errorMessage = '';
 
@@ -12,12 +12,12 @@ class VerifyEmailController extends GetxController {
 
   String get errorMessage => _errorMessage;
 
-  Future<bool> verifyEmail(String email) async {
+  Future<bool> addToWishList(int productId) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
     final NetworkResponse response = await NetworkCaller.getRequest(
-      url: Urls.verifyEmail(email),
+      url: Urls.createWishList(productId),
     );
     if (response.isSuccess) {
       isSuccess = true;

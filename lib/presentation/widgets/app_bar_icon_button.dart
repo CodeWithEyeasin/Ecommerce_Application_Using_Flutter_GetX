@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppBarIconButton extends StatelessWidget {
   const AppBarIconButton({
-    super.key, required this.icon,
+    super.key,
+    required this.icon,
     required this.onTap,
   });
 
@@ -17,7 +18,11 @@ class AppBarIconButton extends StatelessWidget {
       child: CircleAvatar(
         radius: 18,
         backgroundColor: Colors.grey.shade200,
-        child: Icon(icon,color: Colors.grey, size: 20,),
+        child: Icon(
+          icon,
+          color: Colors.grey,
+          size: 20,
+        ),
       ),
     );
   }

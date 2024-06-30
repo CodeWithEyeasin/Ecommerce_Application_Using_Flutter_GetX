@@ -1,9 +1,10 @@
+
 import 'package:ecommerce_app/data/models/network_response.dart';
+import 'package:ecommerce_app/data/models/product.dart';
+import 'package:ecommerce_app/data/models/product_list_model.dart';
+import 'package:ecommerce_app/data/utility/urls.dart';
 import 'package:ecommerce_app/network_caller/network_caller.dart';
 import 'package:get/get.dart';
-import '../../data/models/product.dart';
-import '../../data/models/product_list_model.dart';
-import '../../data/utility/urls.dart';
 
 class ProductListByCategoryController extends GetxController {
   bool _inProgress = false;
@@ -20,15 +21,15 @@ class ProductListByCategoryController extends GetxController {
     bool isSuccess = false;
     _inProgress = true;
     update();
-    final NetworkResponse response =
-        await NetworkCaller.getRequest(url: Urls.productListByCategory(categoryId));
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        url: Urls.productListByCategory(categoryId));
     if (response.isSuccess) {
-      _productList =
-          ProductListModel.fromJson(response.responseData).productList ?? [];
+      _productList = ProductListModel.fromJson(response.responseData)
+          .productList ??
+          [];
     } else {
       _errorMessage = response.errorMessage;
     }
-
     _inProgress = false;
     update();
     return isSuccess;

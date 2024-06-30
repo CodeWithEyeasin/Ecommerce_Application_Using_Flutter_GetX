@@ -1,9 +1,10 @@
+
+import 'package:ecommerce_app/data/models/network_response.dart';
+import 'package:ecommerce_app/data/models/product.dart';
+import 'package:ecommerce_app/data/models/product_list_model.dart';
+import 'package:ecommerce_app/data/utility/urls.dart';
+import 'package:ecommerce_app/network_caller/network_caller.dart';
 import 'package:get/get.dart';
-import '../../data/models/network_response.dart';
-import '../../data/models/product.dart';
-import '../../data/models/product_list_model.dart';
-import '../../data/utility/urls.dart';
-import '../../network_caller/network_caller.dart';
 
 class SpecialProductListController extends GetxController {
   bool _inProgress = false;

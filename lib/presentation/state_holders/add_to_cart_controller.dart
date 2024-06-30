@@ -1,9 +1,9 @@
-import 'package:get/get.dart';
 
-import '../../data/models/cart_model.dart';
-import '../../data/models/network_response.dart';
-import '../../data/utility/urls.dart';
-import '../../network_caller/network_caller.dart';
+import 'package:ecommerce_app/data/models/cart_model.dart';
+import 'package:ecommerce_app/data/models/network_response.dart';
+import 'package:ecommerce_app/data/utility/urls.dart';
+import 'package:ecommerce_app/network_caller/network_caller.dart';
+import 'package:get/get.dart';
 
 class AddToCartController extends GetxController {
   bool _inProgress = false;

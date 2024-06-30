@@ -1,4 +1,6 @@
-import 'category.dart';
+
+
+import 'package:ecommerce_app/data/models/category.dart';
 
 class CategoryListModel {
   String? msg;
@@ -16,4 +18,3 @@ class CategoryListModel {
     }
   }
 }
-

@@ -1,15 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class NetworkImageWidget extends StatelessWidget {
-  const NetworkImageWidget(
-      {super.key, required this.url, this.height, this.weight, this.boxFit,});
+  const NetworkImageWidget({
+    super.key,
+    required this.url,
+    this.height,
+    this.widget,
+    this.boxFit,
+  });
 
   final String url;
   final double? height;
-  final double? weight;
+  final double? widget;
   final BoxFit? boxFit;
-
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +21,13 @@ class NetworkImageWidget extends StatelessWidget {
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(
         height: height,
-        width: weight,
+        width: widget,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imageProvider,
             fit: boxFit ?? BoxFit.scaleDown,
             colorFilter:
-                const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+            const ColorFilter.mode(Colors.red, BlendMode.colorBurn),
           ),
         ),
       ),

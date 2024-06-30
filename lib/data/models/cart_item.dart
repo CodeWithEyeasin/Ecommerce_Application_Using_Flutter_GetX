@@ -1,43 +1,37 @@
 import 'package:ecommerce_app/data/models/product.dart';
 
-class ProductDetailsModel {
+class CartItemModel {
   int? id;
-  String? img1;
-  String? img2;
-  String? img3;
-  String? img4;
-  String? des;
+  int? userId;
+  int? productId;
   String? color;
   String? size;
-  int? productId;
+  int? qty = 1;
+  String? price;
   String? createdAt;
   String? updatedAt;
   Product? product;
 
-  ProductDetailsModel(
+  CartItemModel(
       {this.id,
-        this.img1,
-        this.img2,
-        this.img3,
-        this.img4,
-        this.des,
+        this.userId,
+        this.productId,
         this.color,
         this.size,
-        this.productId,
+        this.qty,
+        this.price,
         this.createdAt,
         this.updatedAt,
         this.product});
 
-  ProductDetailsModel.fromJson(Map<String, dynamic> json) {
+  CartItemModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    img1 = json['img1'];
-    img2 = json['img2'];
-    img3 = json['img3'];
-    img4 = json['img4'];
-    des = json['des'];
+    userId = json['user_id'];
+    productId = json['product_id'];
     color = json['color'];
     size = json['size'];
-    productId = json['product_id'];
+    qty = int.tryParse(json['qty'] ?? '') ?? 1;
+    price = json['price'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     product =

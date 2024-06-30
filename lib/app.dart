@@ -1,8 +1,10 @@
-import 'package:ecommerce_app/controller_binder.dart';
+
 import 'package:ecommerce_app/presentation/screens/splash_screen.dart';
 import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'controller_binder.dart';
 
 class CraftyBay extends StatefulWidget {
   const CraftyBay({super.key});
@@ -21,69 +23,66 @@ class _CraftyBayState extends State<CraftyBay> {
       home: const SplashScreen(),
       initialBinding: ControllerBinder(),
       theme: ThemeData(
-        colorSchemeSeed: AppColors.primaryColor,
-        progressIndicatorTheme: const ProgressIndicatorThemeData(
-          color: AppColors.primaryColor,
-        ),
-        textTheme: _textTheme(),
-        inputDecorationTheme: _inputDecorationTheme(),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-        ),
-        textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-          foregroundColor: AppColors.primaryColor,
-        )),
-        elevatedButtonTheme: buildElevatedButtonThemeData(),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          foregroundColor: AppColors.primaryColor,
-        ),
-      ),
-    );
-  }
-
-  ElevatedButtonThemeData buildElevatedButtonThemeData() {
-    return ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        fixedSize: const Size.fromWidth(double.maxFinite),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-        ),
-        backgroundColor: AppColors.primaryColor,
-        foregroundColor: Colors.white,
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 16,
-        ),
+          colorSchemeSeed: AppColors.primaryColor,
+          progressIndicatorTheme: const ProgressIndicatorThemeData(
+            color: AppColors.primaryColor,
+          ),
+          textTheme: _textTheme(),
+          inputDecorationTheme: _inputDecorationTheme(),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black
+          ),
+          textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                  foregroundColor: AppColors.primaryColor
+              )
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size.fromWidth(double.maxFinite),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16
+                  )
+              )
+          )
       ),
     );
   }
 
   TextTheme _textTheme() => const TextTheme(
-        headlineLarge: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
-        ),
-        headlineSmall: TextStyle(fontSize: 16, color: Colors.blueGrey),
-      );
+    headlineLarge: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: 16,
+      color: Colors.blueGrey,
+    ),
+  );
 
   InputDecorationTheme _inputDecorationTheme() => InputDecorationTheme(
-        hintStyle: const TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.w400,
-        ),
-        border: _outlineInputBorder,
-        enabledBorder: _outlineInputBorder,
-        focusedBorder: _outlineInputBorder,
-        errorBorder: _outlineInputBorder.copyWith(
-          borderSide: const BorderSide(color: Colors.red),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      );
+    hintStyle: const TextStyle(
+      color: Colors.grey,
+      fontWeight: FontWeight.w400,
+    ),
+    border: _outlineInputBorder,
+    enabledBorder: _outlineInputBorder,
+    focusedBorder: _outlineInputBorder,
+    errorBorder: _outlineInputBorder.copyWith(
+        borderSide: const BorderSide(color: Colors.red)),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  );
 
   final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.primaryColor));
+    borderSide: BorderSide(color: AppColors.primaryColor),
+  );
 }

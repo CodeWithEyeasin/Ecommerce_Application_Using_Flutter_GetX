@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce_app/data/models/slider_data.dart';
+import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:ecommerce_app/presentation/widgets/network_image_widget.dart';
 import 'package:flutter/material.dart';
-import '../../data/models/slider_data.dart';
-import '../utility/app_colors.dart';
 
 class HomeCarouselSlider extends StatefulWidget {
   const HomeCarouselSlider({
@@ -24,10 +24,8 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
     return Column(
       children: [
         _buildCarouselSlider(),
-        const SizedBox(
-          height: 8,
-        ),
-        _buildDotIndicator(),
+        const SizedBox(height: 8),
+        _buildDotIndicator()
       ],
     );
   }
@@ -35,7 +33,7 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   Widget _buildCarouselSlider() {
     return CarouselSlider(
       options: CarouselOptions(
-          height: 180.0,
+          height: 180,
           viewportFraction: 1,
           onPageChanged: (index, _) {
             _selectedPageIndex.value = index;
@@ -44,29 +42,32 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              decoration: BoxDecoration(
                   color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                alignment: Alignment.center,
-                child: Stack(
-                  children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: NetworkImageWidget(
-                          url: slider.image ?? '',
-                          height: double.maxFinite,
-                          weight: double.maxFinite,
-                          boxFit: BoxFit.cover,
-                        ),
+                  borderRadius: BorderRadius.circular(8)),
+              alignment: Alignment.center,
+              child: Stack(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: NetworkImageWidget(
+                        url: slider.image ?? '',
+                        height: double.maxFinite,
+                        widget: double.maxFinite,
+                        boxFit: BoxFit.cover,
                       ),
                     ),
-                    Expanded(flex: 2, child: _buildProductDescription(slider)),
-                  ],
-                ));
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: _buildProductDescription(slider),
+                  )
+                ],
+              ),
+            );
           },
         );
       }).toList(),
@@ -82,35 +83,35 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         children: [
           Text(
             slider.title ?? '',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 20,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             slider.shortDes ?? '',
-            maxLines: 2,
+            maxLines: 3,
             style: const TextStyle(
-              color: Colors.white,
-              overflow: TextOverflow.ellipsis,
-            ),
+                color: Colors.black, overflow: TextOverflow.ellipsis),
           ),
+          const SizedBox(height: 8),
           SizedBox(
             width: 100,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: AppColors.primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 12)),
+                backgroundColor: Colors.white,
+                foregroundColor: AppColors.primaryColor,
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                textStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () {},
               child: const Text('Buy now'),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -119,19 +120,21 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   Widget _buildDotIndicator() {
     return ValueListenableBuilder(
       valueListenable: _selectedPageIndex,
-      builder: (BuildContext context, int value, _) {
+      builder: (context, currentPage, _) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (int i = 0; i < widget.sliderList.length; i++)
               Container(
-                height: 15,
                 width: 15,
+                height: 15,
                 margin: const EdgeInsets.symmetric(horizontal: 2),
                 decoration: BoxDecoration(
-                  color: i == value ? AppColors.primaryColor : null,
+                  color: i == currentPage ? AppColors.primaryColor : null,
                   border: Border.all(
-                      color: i == value ? AppColors.primaryColor : Colors.grey,
+                      color: i == currentPage
+                          ? AppColors.primaryColor
+                          : Colors.grey,
                       width: 1),
                   borderRadius: BorderRadius.circular(50),
                 ),

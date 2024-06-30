@@ -1,8 +1,12 @@
+
+import 'package:ecommerce_app/presentation/state_holders/cart_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/main_bottom_nav_bar_controller.dart';
 import 'package:ecommerce_app/presentation/utility/app_colors.dart';
 import 'package:ecommerce_app/presentation/widgets/cart_product_item.dart';
+import 'package:ecommerce_app/presentation/widgets/centered_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 
 class CartListScreen extends StatefulWidget {
   const CartListScreen({super.key});
@@ -12,6 +16,12 @@ class CartListScreen extends StatefulWidget {
 }
 
 class _CartListScreenState extends State<CartListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Get.find<CartListController>().getCartList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -23,65 +33,77 @@ class _CartListScreenState extends State<CartListScreen> {
         appBar: AppBar(
           title: const Text('Carts'),
           leading: IconButton(
-              onPressed: () {
-                Get.find<MainBottomNavBarController>().backToHome();
-              },
-              icon: const Icon(Icons.arrow_back_ios_new)),
+            onPressed: () {
+              Get.find<MainBottomNavBarController>().backToHome();
+            },
+            icon: const Icon(Icons.arrow_back_ios_sharp),
+          ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return const CartProductItem();
-                },
+        body: GetBuilder<CartListController>(builder: (cartListController) {
+          if (cartListController.inProgress) {
+            return const CenteredCircularProgressIndicator();
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: cartListController.cartList.length,
+                  itemBuilder: (context, index) {
+                    return CartProductItem(
+                        cartItem: cartListController.cartList[index]);
+                  },
+                ),
               ),
-            ),
-            _buildCheckoutWidget()
-          ],
-        ),
+              _buildCheckoutWidget(cartListController.totalPrice),
+            ],
+          );
+        }),
       ),
     );
   }
 
-  Widget _buildCheckoutWidget() {
+  Widget _buildCheckoutWidget(double totalPrice) {
     return Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              )
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          color: AppColors.primaryColor.withOpacity(0.1),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _buildTotalPriceWidget(totalPrice),
+          SizedBox(
+            width: 100,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text('Checkout'),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildTotalPriceWidget(),
-                SizedBox(
-                  width: 100,
-                  child: ElevatedButton(onPressed: () {}, child: const Text('Checkout')),
-                )
-              ],
-            ),
-          );
+          )
+        ],
+      ),
+    );
   }
 
-  Widget _buildTotalPriceWidget() {
-    return const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Total',style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),),
-                  Text('\$1200',style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primaryColor,
-                  ),)
-                ],
-              );
+  Widget _buildTotalPriceWidget(double price) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Total Price',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        Text(
+          '\$$price',
+          style: const TextStyle(
+              fontSize: 24,
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
   }
 }

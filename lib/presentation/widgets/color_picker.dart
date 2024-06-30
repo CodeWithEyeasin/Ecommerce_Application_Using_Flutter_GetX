@@ -11,7 +11,6 @@ class ColorPicker extends StatefulWidget {
 }
 
 class _ColorPickerState extends State<ColorPicker> {
-
   int selectedIndex = 0;
 
   @override
@@ -23,16 +22,21 @@ class _ColorPickerState extends State<ColorPicker> {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemCount: widget.colors.length,
-          itemBuilder: (context, index){
+          itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                selectedIndex= index;
+                selectedIndex = index;
                 widget.onChange(widget.colors[index]);
                 setState(() {});
               },
               child: CircleAvatar(
                 backgroundColor: widget.colors[index],
-                child: selectedIndex == index ? const Icon(Icons.check, color: Colors.white,) : null,
+                child: selectedIndex == index
+                    ? const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                )
+                    : null,
               ),
             );
           }),

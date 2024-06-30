@@ -1,3 +1,6 @@
+
+import 'package:ecommerce_app/data/models/category.dart';
+import 'package:ecommerce_app/data/models/product.dart';
 import 'package:ecommerce_app/presentation/state_holders/category_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/main_bottom_nav_bar_controller.dart';
@@ -5,17 +8,16 @@ import 'package:ecommerce_app/presentation/state_holders/new_product_list_contro
 import 'package:ecommerce_app/presentation/state_holders/popular_product_list_controller.dart';
 import 'package:ecommerce_app/presentation/state_holders/special_product_list_controller.dart';
 import 'package:ecommerce_app/presentation/utility/assets_path.dart';
+import 'package:ecommerce_app/presentation/widgets/app_bar_icon_button.dart';
+import 'package:ecommerce_app/presentation/widgets/category_item.dart';
 import 'package:ecommerce_app/presentation/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce_app/presentation/widgets/home_carousel_slider.dart';
+import 'package:ecommerce_app/presentation/widgets/product_card.dart';
+import 'package:ecommerce_app/presentation/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../data/models/category.dart';
-import '../../data/models/product.dart';
-import '../widgets/app_bar_icon_button.dart';
-import '../widgets/category_item.dart';
-import '../widgets/home_carousel_slider.dart';
-import '../widgets/product_card.dart';
-import '../widgets/section_header.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,93 +39,91 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               _buildSearchTextField(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               GetBuilder<HomeSliderController>(builder: (sliderController) {
                 if (sliderController.inProgress) {
                   return const SizedBox(
-                    height: 200,
-                    child: CenterCircularProgressIndicator(),
-                  );
+                      height: 200, child: CenteredCircularProgressIndicator());
                 }
                 return HomeCarouselSlider(
-                    sliderList: sliderController.sliderList);
+                  sliderList: sliderController.sliderList,
+                );
               }),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SectionHeader(
                 title: 'All Category',
                 onTapSeeAll: () {
                   Get.find<MainBottomNavBarController>().selectCategory();
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               GetBuilder<CategoryListController>(
                   builder: (categoryListController) {
-                if (categoryListController.inProgress) {
-                  return const SizedBox(
-                    height: 120,
-                    child: CenterCircularProgressIndicator(),
-                  );
-                }
-                return _buildCategoryListView(
-                    categoryListController.categoryList);
-              }),
-              // const SizedBox(
-              //   height: 8,
-              // ),
+                    if (categoryListController.inProgress) {
+                      return const SizedBox(
+                          height: 100, child: CenteredCircularProgressIndicator());
+                    }
+
+                    return _buildCategoryListView(
+                        categoryListController.categoryList);
+                  }),
+              const SizedBox(height: 8),
               SectionHeader(
                 title: 'Popular',
                 onTapSeeAll: () {},
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               GetBuilder<PopularProductListController>(
-                  builder: (popularProductListController) {
-                if (popularProductListController.popularProductInProgress) {
-                  return const SizedBox(
-                      height: 210, child: CenterCircularProgressIndicator());
-                }
-                return _buildProductListView(
-                    popularProductListController.productList);
-              }),
+                builder: (popularProductListController) {
+                  if (popularProductListController.popularProductInProgress) {
+                    return const SizedBox(
+                      height: 210,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return _buildProductListView(
+                    popularProductListController.productList,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
               SectionHeader(
                 title: 'Special',
                 onTapSeeAll: () {},
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               GetBuilder<SpecialProductListController>(
-                  builder: (specialProductListController) {
-                if (specialProductListController.inProgress) {
-                  return const SizedBox(
-                      height: 210, child: CenterCircularProgressIndicator());
-                }
-                return _buildProductListView(
-                    specialProductListController.productList);
-              }),
+                builder: (specialProductListController) {
+                  if (specialProductListController.inProgress) {
+                    return const SizedBox(
+                      height: 210,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return _buildProductListView(
+                    specialProductListController.productList,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
               SectionHeader(
                 title: 'New',
                 onTapSeeAll: () {},
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               GetBuilder<NewProductListController>(
-                  builder: (newProductListController) {
-                if (newProductListController.inProgress) {
-                  return const SizedBox(
-                      height: 210, child: CenterCircularProgressIndicator());
-                }
-                return _buildProductListView(
-                    newProductListController.productList);
-              }),
+                builder: (newProductListController) {
+                  if (newProductListController.inProgress) {
+                    return const SizedBox(
+                      height: 210,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return _buildProductListView(
+                    newProductListController.productList,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -161,18 +161,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return TextField(
       controller: _searchTEController,
       decoration: InputDecoration(
-          hintText: 'Search',
-          fillColor: Colors.grey.shade200,
-          filled: true,
-          prefixIcon: const Icon(Icons.search),
-          enabledBorder: OutlineInputBorder(
+        hintText: 'Search',
+        fillColor: Colors.grey.shade200,
+        filled: true,
+        prefixIcon: const Icon(Icons.search),
+        enabledBorder: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8)),
+        focusedBorder: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(8),
-          )),
+            borderRadius: BorderRadius.circular(8)),
+      ),
     );
   }
 
@@ -184,22 +183,15 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.person,
           onTap: () {},
         ),
-        const SizedBox(
-          width: 8,
-        ),
+        const SizedBox(width: 8),
         AppBarIconButton(
           icon: Icons.call,
           onTap: () {},
         ),
-        const SizedBox(
-          width: 8,
-        ),
+        const SizedBox(width: 8),
         AppBarIconButton(
-          icon: Icons.notification_important_outlined,
+          icon: Icons.notifications_active_outlined,
           onTap: () {},
-        ),
-        const SizedBox(
-          width: 8,
         ),
       ],
     );

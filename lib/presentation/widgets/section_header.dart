@@ -23,13 +23,12 @@ class SectionHeader extends StatelessWidget {
           ),
         ),
         TextButton(
-            onPressed: onTapSeeAll,
-            child: const Text(
-              'See all',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ))
+          onPressed: onTapSeeAll,
+          child: const Text(
+            'See all',
+            style: TextStyle(fontSize: 16),
+          ),
+        )
       ],
     );
   }

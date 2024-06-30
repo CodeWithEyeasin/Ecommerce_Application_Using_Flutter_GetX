@@ -1,6 +1,7 @@
 
-import 'brand.dart';
-import 'category.dart';
+
+import 'package:ecommerce_app/data/models/brand.dart';
+import 'package:ecommerce_app/data/models/category.dart';
 
 class Product {
   int? id;

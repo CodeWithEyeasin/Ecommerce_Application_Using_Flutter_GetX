@@ -1,20 +1,29 @@
+
 import 'dart:convert';
 import 'dart:developer';
-import 'package:ecommerce_app/presentation/screens/email_verification_screen.dart';
-import 'package:ecommerce_app/presentation/state_holders/user_auth_controller.dart';
+
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
+
 import '../data/models/network_response.dart';
+import '../presentation/screens/email_verification_screen.dart';
+import '../presentation/state_holders/user_auth_controller.dart';
 
 class NetworkCaller {
-  static Future<NetworkResponse> getRequest({required String  url, bool fromAuth = false}) async {
+  static Future<NetworkResponse> getRequest(
+      {required String url, bool fromAuth = false}) async {
     try {
       log(url);
       log(UserAuthController.accessToken);
-      final Response response = await get(Uri.parse(url), headers: {'accept': 'application/json', 'token': UserAuthController.accessToken});
+      final Response response = await get(
+        Uri.parse(url),
+        headers: {
+          'accept': 'application/json',
+          'token': UserAuthController.accessToken
+        },
+      );
       log(response.statusCode.toString());
       log(response.body.toString());
-
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
         return NetworkResponse(
@@ -22,7 +31,7 @@ class NetworkCaller {
             isSuccess: true,
             responseData: decodedData);
       } else if (response.statusCode == 401) {
-        if(!fromAuth) {
+        if (!fromAuth) {
           _goToSignInScreen();
         }
         return NetworkResponse(
@@ -46,11 +55,16 @@ class NetworkCaller {
       {required String url, Map<String, dynamic>? body}) async {
     try {
       log(url);
+      log(UserAuthController.accessToken);
+      log(body.toString());
       final Response response = await post(Uri.parse(url),
-          headers: {'accept': 'application/json', 'token': UserAuthController.accessToken}, body: jsonEncode(body));
+          headers: {
+            'accept': 'application/json',
+            'token': UserAuthController.accessToken
+          },
+          body: body);
       log(response.statusCode.toString());
       log(response.body.toString());
-
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
         return NetworkResponse(
@@ -76,13 +90,15 @@ class NetworkCaller {
     }
   }
 
-  static void _goToSignInScreen() {
+  static Future<void> _goToSignInScreen() async {
     // Navigator.push(
     //   CraftyBay.navigationKey.currentState!.context,
     //   MaterialPageRoute(
     //     builder: (context) => const EmailVerificationScreen(),
     //   ),
     // );
+
+    await UserAuthController.clearUserData();
     getx.Get.to(() => const EmailVerificationScreen());
   }
 }
